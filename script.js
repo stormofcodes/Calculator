@@ -1,15 +1,12 @@
 const add = function (a, b) {
     return a + b;
 }
-
 const subtract = function (a, b) {
     return a - b;
 }
-
 const multiply = function (a, b) {
     return a * b;
 }
-
 const divide = function (a, b) {
     if (b === 0) return 'Math says no.'
     return a / b;
@@ -37,6 +34,7 @@ let secondNumber = '';
 const buttons = document.querySelectorAll('.btn');
 const display = document.querySelector('.display');
 const historyDisplay = document.querySelector('.history');
+let shouldResetDisplay = false;
 
 buttons.forEach(button => {
     button.addEventListener('click', function(event) {
@@ -59,6 +57,7 @@ buttons.forEach(button => {
             firstNumber = result;
             operator = '';
             secondNumber = '';
+            shouldResetDisplay = true;
             }
         } else if (['+', '-', '*', '/'].includes(value)) {
             if (firstNumber && operator && secondNumber) {
@@ -70,18 +69,24 @@ buttons.forEach(button => {
             firstNumber = result;
             secondNumber = '';
             operator = value;
+            shouldResetDisplay = true;
         } else {
                 operator = value;
                 historyDisplay.textContent = `${firstNumber} ${operator}`;
             }
         } else {
+            if (shouldResetDisplay) {
+            display.textContent = '';
+            shouldResetDisplay = false;
+            firstNumber = '';
+            }
             if (operator === '') {
-                firstNumber += value;
-                display.textContent = firstNumber;
-                shouldResetDisplay = false;
+            firstNumber += value;
+            display.textContent = firstNumber;
+            shouldResetDisplay = false;
             } else {
-                secondNumber += value;
-                display.textContent = secondNumber;
+            secondNumber += value;
+            display.textContent = secondNumber;
             }
         }
     });
