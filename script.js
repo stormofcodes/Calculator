@@ -25,7 +25,9 @@ switch (operator) {
         return multiply(a, b);
     case '/':
         return divide(a, b);
-}
+    default:
+            return "Nope.";
+    }
 };
 
 
