@@ -31,3 +31,16 @@ switch (operator) {
 };
 
 
+const buttons = document.querySelectorAll('.btn');
+const display = document.querySelector('.display');
+
+buttons.forEach(button => {
+    button.addEventListener('click', function(event) {
+        const value = event.target.getAttribute('data-value');
+
+        display.textContent += value;
+    });
+
+});
+
+
