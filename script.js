@@ -11,6 +11,7 @@ const multiply = function (a, b) {
 }
 
 const divide = function (a, b) {
+    if (b === 0) return 'Math says no.'
     return a / b;
 }
 
