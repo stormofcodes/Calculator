@@ -1,52 +1,36 @@
-const add = function (a, b) {
-    return a + b;
-}
-const subtract = function (a, b) {
-    return a - b;
-}
-const multiply = function (a, b) {
-    return a * b;
-}
-const divide = function (a, b) {
-    if (b === 0) return 'Math says no.'
-    return a / b;
-}
+const add = (a, b) => a + b;
+const subtract = (a, b) => a - b;
+const multiply = (a, b) => a * b;
+const divide = (a, b) => b === 0 ? 'Math says no.' : a / b;
 
-const operate = function(operator, firstNumber, secondNumber)  {
+
+function operate(operator, a, b)  {
 switch (operator) {
-    case '+':
-        return add(firstNumber, secondNumber);
-    case '-':
-        return subtract(firstNumber, secondNumber);
-    case '*':
-        return multiply(firstNumber, secondNumber);
-    case '/':
-        return divide(firstNumber, secondNumber);
-    default:
-            return "Nope.";
+    case '+': return add(a, b);
+    case '-': return subtract(a, b);
+    case '*': return multiply(a, b);
+    case '/': return divide(a, b);
+    default: return "Nope.";
     }
-};
+}
 
 let firstNumber = '';
 let operator = '';
 let secondNumber = '';
+let shouldResetDisplay = false;
 
 const buttons = document.querySelectorAll('.btn');
 const display = document.querySelector('.display');
 const historyDisplay = document.querySelector('.history');
-let shouldResetDisplay = false;
 
 buttons.forEach(button => {
     button.addEventListener('click', function(event) {
         const value = event.target.getAttribute('data-value');
 
         if (value === 'clear') {
-            firstNumber = '';
-            operator = '';
-            secondNumber = '';
-            display.textContent = '';
-            historyDisplay.textContent = '';
-            return;
+            firstNumber = operator = secondNumber = '';
+            display.textContent = historyDisplay.textContent = '';
+
         } else if (value === '=') {
            if (firstNumber && operator && secondNumber) {
             const result = operate(operator, parseFloat(firstNumber),
@@ -59,6 +43,7 @@ buttons.forEach(button => {
             secondNumber = '';
             shouldResetDisplay = true;
             }
+
         } else if (['+', '-', '*', '/'].includes(value)) {
             if (firstNumber && operator && secondNumber) {
             const result = operate(operator, parseFloat(firstNumber),
@@ -70,21 +55,33 @@ buttons.forEach(button => {
             secondNumber = '';
             operator = value;
             shouldResetDisplay = true;
+
         } else {
                 operator = value;
                 historyDisplay.textContent = `${firstNumber} ${operator}`;
             }
+
         } else {
             if (shouldResetDisplay) {
             display.textContent = '';
             shouldResetDisplay = false;
-            firstNumber = '';
+
+            if (operator === '') {
+                firstNumber = '';
+            } else {
+                secondNumber = '';
+            }
             }
             if (operator === '') {
+            if (value === '.' && firstNumber.includes('.')) return;
+
             firstNumber += value;
             display.textContent = firstNumber;
             shouldResetDisplay = false;
+
             } else {
+
+            if (value === '.' && firstNumber.includes('.')) return;
             secondNumber += value;
             display.textContent = secondNumber;
             }
