@@ -31,6 +31,17 @@ buttons.forEach(button => {
             firstNumber = operator = secondNumber = '';
             display.textContent = historyDisplay.textContent = '';
 
+        } else if (value === 'erase') {
+           if (operator === '') {
+            firstNumber = firstNumber.slice(0, -1);
+            display.textContent = firstNumber;
+           } else if (secondNumber !== '') {
+            secondNumber = secondNumber.slice(0, -1);
+           } else {
+            operator = '';
+            historyDisplay.textContent = '';
+           }
+
         } else if (value === '=') {
            if (firstNumber && operator && secondNumber) {
             const result = operate(operator, parseFloat(firstNumber),
