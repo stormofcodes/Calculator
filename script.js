@@ -34,88 +34,77 @@ function handleInput(value) {
         if (operator === '') {
             firstNumber = firstNumber.slice(0, -1);
             display.textContent = firstNumber;
-    } else if (secondNumber !== '') {
+        } else if (secondNumber !== '') {
             secondNumber = secondNumber.slice(0, -1);
         } else {
             operator = '';
             historyDisplay.textContent = '';
-           }
-
+        }
 
     } else if (value === '=') {
         if (firstNumber && operator && secondNumber) {
-            const result = operate(operator, parseFloat(firstNumber),
-                            parseFloat(secondNumber));
-            historyDisplay.textContent = `${firstNumber} ${operator}
-                                            ${secondNumber}`
+            const result = operate(operator, parseFloat(firstNumber), parseFloat(secondNumber));
+            historyDisplay.textContent = `${firstNumber} ${operator} ${secondNumber}`;
             display.textContent = result;
             firstNumber = result;
             operator = '';
             secondNumber = '';
             shouldResetDisplay = true;
-            }
-
+        }
 
     } else if (['+', '-', '*', '/'].includes(value)) {
         if (firstNumber && operator && secondNumber) {
-            const result = operate(operator, parseFloat(firstNumber),
-                            parseFloat(secondNumber));
-            historyDisplay.textContent = `${firstNumber} ${operator}
-                                            ${secondNumber}`
+            const result = operate(operator, parseFloat(firstNumber), parseFloat(secondNumber));
+            historyDisplay.textContent = `${firstNumber} ${operator} ${secondNumber}`;
             display.textContent = result;
             firstNumber = result;
             secondNumber = '';
             operator = value;
             shouldResetDisplay = true;
-
         } else {
             operator = value;
             historyDisplay.textContent = `${firstNumber} ${operator}`;
-            }
+            display.textContent = '';
+            shouldResetDisplay = false;
+        }
 
     } else {
         if (shouldResetDisplay) {
             display.textContent = '';
             shouldResetDisplay = false;
 
-        if (operator === '') {
-            firstNumber = '';
-        } else {
-            secondNumber = '';
+            if (operator === '') {
+                firstNumber = '';
+            } else {
+                secondNumber = '';
             }
         }
 
         if (operator === '') {
-        if (value === '.' && firstNumber.includes('.')) return;
+            if (value === '.' && firstNumber.includes('.')) return;
 
             firstNumber += value;
             display.textContent = firstNumber;
             shouldResetDisplay = false;
-
         } else {
+            if (value === '.' && firstNumber.includes('.')) return;
 
-        if (value === '.' && firstNumber.includes('.')) return;
             secondNumber += value;
             display.textContent = secondNumber;
         }
     }
-};
+}
 
 buttons.forEach(button => {
-  button.addEventListener('click', function(event) {
-
-    const value = event.target.getAttribute('data-value');
-
-    handleInput(value);
-    
+    button.addEventListener('click', function(event) {
+        const value = event.target.getAttribute('data-value');
+        handleInput(value);
     });
 });
 
-
 document.addEventListener('keydown', function(event) {
     const key = event.key;
-    const allowedKeys = ['0','1','2','3','4','5','6','7','8','9',
-                            '.','+','-','*','/','=','Enter','Backspace','Escape'];
+    const allowedKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '+', '-', '*', '/', '=', 'Enter', 'Backspace', 'Escape'];
 
     if (allowedKeys.includes(key)) {
         let value = key;
@@ -125,6 +114,5 @@ document.addEventListener('keydown', function(event) {
         if (value === 'Escape') value = 'clear';
 
         handleInput(value);
-
     }
 });
