@@ -23,6 +23,19 @@ const buttons = document.querySelectorAll('.btn');
 const display = document.querySelector('.display');
 const historyDisplay = document.querySelector('.history');
 
+function updateDisplays() {
+    let expression = firstNumber;
+    if (operator) expression += ` ${operator}`;
+    if (secondNumber) expression += ` ${secondNumber}`;
+    display.textContent = expression;
+
+    if (firstNumber && operator && secondNumber) {
+        const result = operate(operator, parseFloat(firstNumber), parseFloat(secondNumber));
+        historyDisplay.textContent = result;
+    } else {
+        historyDisplay.textContent = '';
+    }
+}
 
 function handleInput(value) {
 
@@ -38,14 +51,14 @@ function handleInput(value) {
             secondNumber = secondNumber.slice(0, -1);
         } else {
             operator = '';
-            historyDisplay.textContent = '';
         }
+        updateDisplays();
 
     } else if (value === '=') {
         if (firstNumber && operator && secondNumber) {
             const result = operate(operator, parseFloat(firstNumber), parseFloat(secondNumber));
-            historyDisplay.textContent = `${firstNumber} ${operator} ${secondNumber}`;
             display.textContent = result;
+            historyDisplay.textContent = '';
             firstNumber = result;
             operator = '';
             secondNumber = '';
@@ -55,16 +68,14 @@ function handleInput(value) {
     } else if (['+', '-', '*', '/'].includes(value)) {
         if (firstNumber && operator && secondNumber) {
             const result = operate(operator, parseFloat(firstNumber), parseFloat(secondNumber));
-            historyDisplay.textContent = `${firstNumber} ${operator} ${secondNumber}`;
-            display.textContent = result;
             firstNumber = result;
             secondNumber = '';
             operator = value;
-            shouldResetDisplay = true;
+            display.textContent = `${firstNumber} ${operator}`;
+            updateDisplays();
         } else {
             operator = value;
-            historyDisplay.textContent = `${firstNumber} ${operator}`;
-            display.textContent = '';
+            display.textContent = `${firstNumber} ${operator}`;
             shouldResetDisplay = false;
         }
 
@@ -85,13 +96,13 @@ function handleInput(value) {
 
             firstNumber += value;
             display.textContent = firstNumber;
-            shouldResetDisplay = false;
         } else {
             if (value === '.' && firstNumber.includes('.')) return;
 
             secondNumber += value;
             display.textContent = secondNumber;
         }
+        updateDisplays();
     }
 }
 
