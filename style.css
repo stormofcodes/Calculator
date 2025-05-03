@@ -1,0 +1,80 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(24, 26, 23);
+    height: 100vh;
+    margin: 0;
+}
+
+.calculator {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 10px;
+    border-radius: 3%;
+    width: 30vh;
+    height: 40vh;
+    background-color: rgb(24, 26, 23);
+    box-shadow:
+    0px 0px 4px #91eeff63,
+    0px 0px 20px 0px #93cfff80;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                box-shadow 0.3s ease-in-out;
+}
+
+.calculator:hover {
+    box-shadow:
+        inset 0px 0px 4px #91efffa4,
+        0 0 20px 5px #75c1ffbd;
+    transform: scale(1.03);
+}
+
+.history,
+.display {
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 1px;
+    text-align: right;
+    height: 5vh;
+    width: 90%; 
+    overflow: hidden;
+    background-color: rgba(24, 26, 23, 0);
+    font-size: 30px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    white-space: nowrap;
+}
+
+.display {
+    padding-bottom: 10px;
+    color: rgb(193 199 255 / 74%);
+    text-shadow: 0 0 4px #77b8f7a1;;
+}
+
+.history {
+    color: rgba(155 173 205 / 45%);
+    text-shadow: 0 0 3px #6b80ff99;
+}
+
+.btn {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 15px;
+    color: rgba(186, 208, 255, 0.945);
+    height: 5vh;
+    width: 6vh;
+    margin: 2px;
+    border-radius: 10%;
+    border: none;
+    background-color: rgba(24, 26, 23, 0);
+    box-shadow: 0 0 3px rgba(135, 199, 255, 0.233); 
+    transition: all 0.1s ease-in-out;
+}
+
+.btn:hover {
+    color: rgb(235, 241, 255);
+    box-shadow: 0 0 8px rgba(135, 199, 255, 0.425); 
+}

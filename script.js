@@ -23,6 +23,7 @@ const buttons = document.querySelectorAll('.btn');
 const display = document.querySelector('.display');
 const historyDisplay = document.querySelector('.history');
 
+
 function updateDisplays() {
     let expression = firstNumber;
     if (operator) expression += ` ${operator}`;
@@ -105,6 +106,7 @@ function handleInput(value) {
         updateDisplays();
     }
 }
+
 
 buttons.forEach(button => {
     button.addEventListener('click', function(event) {
