@@ -6,6 +6,11 @@ body {
     background-color: rgb(24, 26, 23);
     height: 100vh;
     margin: 0;
+    background-image: url('img/8.jpg');
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: overlay;
+
 }
 
 .calculator {
@@ -15,21 +20,22 @@ body {
     align-items: center;
     padding: 10px 10px;
     border-radius: 3%;
-    width: 30vh;
-    height: 40vh;
-    background-color: rgb(24, 26, 23);
+    width: 33vh;
+    height: 44vh;
+    background-color: rgb(12 12 12 / 63%);
     box-shadow:
-    0px 0px 4px #91eeff63,
-    0px 0px 20px 0px #93cfff80;
+    0px 0px 9px 1px #91eeff63,
+    0px 0px 20px 0px #93cfffba;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
                 box-shadow 0.3s ease-in-out;
 }
 
 .calculator:hover {
     box-shadow:
-        inset 0px 0px 4px #91efffa4,
-        0 0 20px 5px #75c1ffbd;
-    transform: scale(1.03);
+    inset 0px 0px 3px 1px #cff8ff,
+    0px 0px 3px #cff8ff,
+    0 0 20px 5px #ff7d31b8;
+    transform: scale(1.05);
 }
 
 .history,
@@ -37,11 +43,10 @@ body {
     font-family: 'Orbitron', sans-serif;
     letter-spacing: 1px;
     text-align: right;
-    height: 5vh;
-    width: 90%; 
+    height: 5.5vh;
+    width: 87%; 
     overflow: hidden;
     background-color: rgba(24, 26, 23, 0);
-    font-size: 30px;
     box-sizing: border-box;
     display: flex;
     align-items: flex-end;
@@ -51,30 +56,65 @@ body {
 
 .display {
     padding-bottom: 10px;
-    color: rgb(194 199 245 / 60%);
+    color: rgb(158 210 255 / 50%);
     text-shadow: 0 0 4px #7498bba1;
+    font-size: 33px;
 }
 
 .history {
-    color: rgb(136 155 187 / 42%);
-    text-shadow: 0 0 3px #42497399;
+    color: rgb(136 175 187 / 23%);
+    text-shadow: 0 0 3px #425973;
+    font-size: 28px;
+}
+
+.row1 {
+    margin-top: 10px;
 }
 
 .btn {
     font-family: 'Orbitron', sans-serif;
-    font-size: 15px;
-    color: rgba(186, 208, 255, 0.945);
-    height: 5vh;
-    width: 6vh;
+    font-size: 16.5px;
+    color: rgb(150 205 253 / 56%);
+    height: 5.5vh;
+    width: 6.6vh;
     margin: 2px;
     border-radius: 10%;
     border: none;
     background-color: rgba(24, 26, 23, 0);
-    box-shadow: 0 0 3px rgba(135, 199, 255, 0.233); 
+    box-shadow:
+    inset 0px -1px 3px 2px rgb(14 240 255 / 10%);
     transition: all 0.1s ease-in-out;
 }
 
 .btn:hover {
     color: rgb(235, 241, 255);
     box-shadow: 0 0 8px rgba(135, 199, 255, 0.425); 
+}
+
+.operator {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16.5px;
+    color: rgb(255 128 14 / 95%);
+    height: 5.5vh;
+    width: 6.6vh;
+    margin: 2px;
+    border-radius: 10%;
+    border: none;
+    background-color: rgba(24, 26, 23, 0);
+    box-shadow:
+    inset 0px 0px 3px 1px rgb(255 129 0 / 30%);
+    transition: all 0.1s ease-in-out;
+}
+
+.operator:hover {
+    color: rgb(255, 245, 235);
+    box-shadow: 0 0 8px rgba(255, 130, 6, 0.582); 
+}
+
+.btn:active {
+    transform: translateY(2px);
+}
+
+.operator:active {
+    transform: translateY(2px); 
 }
