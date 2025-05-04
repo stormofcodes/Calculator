@@ -3,14 +3,13 @@ const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
 const divide = (a, b) => b === 0 ? 'Math says no.' : a / b;
 
-
-function operate(operator, a, b)  {
-switch (operator) {
-    case '+': return add(a, b);
-    case '-': return subtract(a, b);
-    case '*': return multiply(a, b);
-    case '/': return divide(a, b);
-    default: return "Nope.";
+function operate(operator, a, b) {
+    switch (operator) {
+        case '+': return add(a, b);
+        case '-': return subtract(a, b);
+        case '*': return multiply(a, b);
+        case '/': return divide(a, b);
+        default: return "Nope.";
     }
 }
 
@@ -18,36 +17,22 @@ let firstNumber = '';
 let operator = '';
 let secondNumber = '';
 let shouldResetDisplay = false;
+let isPercent = false;
 
 const buttons = document.querySelectorAll('.btn');
 const display = document.querySelector('.display');
 const historyDisplay = document.querySelector('.history');
 
-
-function updateDisplays() {
-    let expression = firstNumber;
-    if (operator) expression += ` ${operator}`;
-    if (secondNumber) expression += ` ${secondNumber}`;
-    display.textContent = expression;
-
-    if (firstNumber && operator && secondNumber) {
-        const result = operate(operator, parseFloat(firstNumber), parseFloat(secondNumber));
-        historyDisplay.textContent = result;
-    } else {
-        historyDisplay.textContent = '';
-    }
-}
-
 function handleInput(value) {
-
     if (value === 'clear') {
         firstNumber = operator = secondNumber = '';
+        shouldResetDisplay = false;
+        isPercent = false;
         display.textContent = historyDisplay.textContent = '';
 
     } else if (value === 'erase') {
         if (operator === '') {
             firstNumber = firstNumber.slice(0, -1);
-            display.textContent = firstNumber;
         } else if (secondNumber !== '') {
             secondNumber = secondNumber.slice(0, -1);
         } else {
@@ -55,30 +40,43 @@ function handleInput(value) {
         }
         updateDisplays();
 
+    } else if (value === 'percent') {
+        percent();
+
     } else if (value === '=') {
         if (firstNumber && operator && secondNumber) {
-            const result = operate(operator, parseFloat(firstNumber), parseFloat(secondNumber));
+            let a = parseFloat(firstNumber);
+            let b = parseFloat(secondNumber);
+            if (isPercent) {
+                b = (a * b) / 100;
+                isPercent = false;
+            }
+            const result = operate(operator, a, b);
             display.textContent = result;
             historyDisplay.textContent = '';
-            firstNumber = result;
+            firstNumber = result.toString();
             operator = '';
             secondNumber = '';
             shouldResetDisplay = true;
         }
 
     } else if (['+', '-', '*', '/'].includes(value)) {
+        if (!firstNumber) return;
+
         if (firstNumber && operator && secondNumber) {
-            const result = operate(operator, parseFloat(firstNumber), parseFloat(secondNumber));
-            firstNumber = result;
+            let a = parseFloat(firstNumber);
+            let b = parseFloat(secondNumber);
+            if (isPercent) {
+                b = (a * b) / 100;
+                isPercent = false;
+            }
+            const result = operate(operator, a, b);
+            firstNumber = result.toString();
             secondNumber = '';
-            operator = value;
-            display.textContent = `${firstNumber} ${operator}`;
-            updateDisplays();
-        } else {
-            operator = value;
-            display.textContent = `${firstNumber} ${operator}`;
-            shouldResetDisplay = false;
         }
+        operator = value;
+        shouldResetDisplay = false;
+        updateDisplays();
 
     } else {
         if (shouldResetDisplay) {
@@ -94,28 +92,69 @@ function handleInput(value) {
 
         if (operator === '') {
             if (value === '.' && firstNumber.includes('.')) return;
-
             firstNumber += value;
-            display.textContent = firstNumber;
         } else {
-            if (value === '.' && firstNumber.includes('.')) return;
-
+            if (value === '.' && secondNumber.includes('.')) return;
             secondNumber += value;
-            display.textContent = secondNumber;
         }
+
         updateDisplays();
     }
 }
 
+function updateDisplays() {
+    let expression = firstNumber;
+    if (operator) expression += ` ${operator} `;
+    if (secondNumber) {
+        expression += `${secondNumber}${isPercent ? '%' : ''}`;
+    }
+    display.textContent = expression;
+
+    if (firstNumber && operator && secondNumber) {
+        let a = parseFloat(firstNumber);
+        let b = parseFloat(secondNumber);
+        if (isPercent) {
+            b = (a * b) / 100;
+        }
+        const result = operate(operator, a, b);
+        historyDisplay.textContent = result;
+    } else {
+        historyDisplay.textContent = '';
+    }
+}
+
+function percent() {
+    if (operator && secondNumber) {
+        isPercent = true;
+        updateDisplays(); 
+    }
+}
+
+function toggleSign() {
+    if (operator === '') {
+        if (firstNumber) {
+            firstNumber = (parseFloat(firstNumber) * -1).toString();
+        }
+    } else {
+        if (secondNumber) {
+            secondNumber = (parseFloat(secondNumber) * -1).toString();
+        }
+    }
+    updateDisplays();
+}
 
 buttons.forEach(button => {
-    button.addEventListener('click', function(event) {
+    button.addEventListener('click', function (event) {
         const value = event.target.getAttribute('data-value');
-        handleInput(value);
+        if (value === 'toggleSign') {
+            toggleSign();
+        } else {
+            handleInput(value);
+        }
     });
 });
 
-document.addEventListener('keydown', function(event) {
+document.addEventListener('keydown', function (event) {
     const key = event.key;
     const allowedKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '+', '-', '*', '/', '=', 'Enter', 'Backspace', 'Escape'];
 
