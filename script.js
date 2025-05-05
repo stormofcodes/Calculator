@@ -156,7 +156,7 @@ buttons.forEach(button => {
 
 document.addEventListener('keydown', function (event) {
     const key = event.key;
-    const allowedKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '+', '-', '*', '/', '=', 'Enter', 'Backspace', 'Escape'];
+    const allowedKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '+', '-', '*', '/', '=', '%', 'Enter', 'Backspace', 'Escape', ' '];
 
     if (allowedKeys.includes(key)) {
         let value = key;
@@ -164,6 +164,8 @@ document.addEventListener('keydown', function (event) {
         if (value === 'Enter') value = '=';
         if (value === 'Backspace') value = 'erase';
         if (value === 'Escape') value = 'clear';
+        if (value === '%') return percent();
+        if (value === ' ') return toggleSign();
 
         handleInput(value);
     }
