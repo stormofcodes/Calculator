@@ -6,7 +6,7 @@ Use at your own risk. Also, it look kinda dope.
 
 👉 [Click here to use the calculator live](https://your-live-link-here.com)
 
-![Calculator screenshot](img/calculator.png)
+![Calculator screenshot](./img/calculator.png)
 
 
 ---
