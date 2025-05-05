@@ -26,7 +26,7 @@ body {
     align-items: center;
     padding: 10px 10px;
     border-radius: 3%;
-    width: 33vh;
+    width: 31vh;
     height: 44vh;
     background-color: rgb(12 12 12 / 63%);
     box-shadow:
@@ -63,13 +63,13 @@ body {
     padding-bottom: 10px;
     color: rgb(158 210 255 / 50%);
     text-shadow: 0 0 4px #7498bba1;
-    font-size: 33px;
+    font-size: 3.5vh;
 }
 
 .history {
     color: rgb(136 175 187 / 23%);
     text-shadow: 0 0 3px #425973;
-    font-size: 28px;
+    font-size: 3vh;
 }
 
 .row1 {
@@ -78,7 +78,7 @@ body {
 
 .btn {
     font-family: 'Orbitron', sans-serif;
-    font-size: 16.5px;
+    font-size: 2vh;
     color: rgb(150 205 253 / 56%);
     height: 5.5vh;
     width: 6.6vh;
@@ -97,7 +97,7 @@ body {
 }
 
 .operator {
-    font-size: 16.5px;
+    font-size: 2vh;
     color: rgb(255 128 14 / 95%);
     height: 5.5vh;
     width: 6.6vh;
@@ -128,7 +128,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 16px;
+    font-size: 1.7vh;
     color: #6d6d6d94;
     text-shadow: 0px 1px 0px #7498bba1;
 
