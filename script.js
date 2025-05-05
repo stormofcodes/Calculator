@@ -104,7 +104,10 @@ function handleInput(value) {
 
 function updateDisplays() {
     let expression = firstNumber;
-    if (operator) expression += ` ${operator} `;
+    if (operator) {
+        let displayOperator = operator === '*' ? '×' : operator === '/' ? '÷' : operator;
+        expression += ` ${displayOperator} `;
+    }
     if (secondNumber) {
         expression += `${secondNumber}${isPercent ? '%' : ''}`;
     }
