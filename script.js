@@ -109,7 +109,7 @@ function updateDisplays() {
         expression += ` ${displayOperator} `;
     }
     if (secondNumber) {
-        expression += `${secondNumber}${isPercent ? '%' : ''}`;
+        expression += `${secondNumber}${isPercent ? '⁒' : ''}`;
     }
     display.textContent = expression;
 
